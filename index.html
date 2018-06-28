@@ -619,7 +619,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-28 13:48:07 UTC</span>
+<span id="revdate">2018-06-28 13:54:50 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -705,7 +705,7 @@ idea spring-kafka-quickstart/pom.xml</code></pre>
 
   <span class="annotation">@KafkaListener</span>(topics = <span class="string"><span class="delimiter">&quot;</span><span class="content">messages</span><span class="delimiter">&quot;</span></span>)
   <span class="directive">public</span> <span class="type">void</span> on(<span class="directive">final</span> ConsumerRecord&lt;<span class="predefined-type">Object</span>, <span class="predefined-type">Object</span>&gt; message) {
-    log.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">received message: {}</span><span class="delimiter">&quot;</span></span>, message.getClass());
+    log.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">received message: {}</span><span class="delimiter">&quot;</span></span>, message.value());
     Mono.just(<span class="keyword">new</span> Message().setAt(now())
                            .setBody(message.value().toString()))
         .subscribe(msg -&gt; log.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">saving message object: '{}'</span><span class="delimiter">&quot;</span></span>, msg));
@@ -793,7 +793,7 @@ bash target/*.jar</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-28 13:48:07 UTC
+Last updated 2018-06-28 13:54:50 UTC
 </div>
 </div>
 </body>

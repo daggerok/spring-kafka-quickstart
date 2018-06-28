@@ -14,7 +14,7 @@ public class MessageListener {
 
   @KafkaListener(topics = "messages")
   public void on(final ConsumerRecord<Object, Object> message) {
-    log.info("received message: {}", message.getClass());
+    log.info("received message: {}", message.value());
     Mono.just(new Message().setAt(now())
                            .setBody(message.value().toString()))
         .subscribe(msg -> log.info("saving message object: '{}'", msg));

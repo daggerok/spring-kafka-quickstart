@@ -619,7 +619,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-28 13:41:39 UTC</span>
+<span id="revdate">2018-06-28 13:48:07 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -699,39 +699,16 @@ idea spring-kafka-quickstart/pom.xml</code></pre>
 <div class="listingblock">
 <div class="title">add kafke listener:</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Configuration</span>
-<span class="annotation">@RequiredArgsConstructor</span>
-<span class="type">class</span> <span class="class">WebfluxRoutesConfig</span> {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Log4j2</span>
+<span class="annotation">@Service</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MessageListener</span> {
 
-  <span class="directive">static</span> <span class="directive">final</span> ParameterizedTypeReference&lt;<span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">String</span>&gt;&gt; sendMessageRequestType
-      = <span class="keyword">new</span> ParameterizedTypeReference&lt;<span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">String</span>&gt;&gt;() {};
-
-  <span class="directive">final</span> KafkaTemplate&lt;<span class="predefined-type">Object</span>, <span class="predefined-type">Object</span>&gt; kafka;
-
-  <span class="annotation">@Bean</span>
-  HandlerFunction&lt;ServerResponse&gt; sendMessageHandler() {
-    <span class="keyword">return</span> request -&gt;
-        ok().body(request.bodyToMono(sendMessageRequestType)
-                         .map(it -&gt; it.getOrDefault(<span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>))
-                         .filter(it -&gt; !it.trim().isEmpty())
-                         .doOnNext(message -&gt; kafka.send(<span class="string"><span class="delimiter">&quot;</span><span class="content">messages</span><span class="delimiter">&quot;</span></span>, message))
-                         .map(s -&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">message sent.</span><span class="delimiter">&quot;</span></span>)
-                         .flatMap(Mono::just), <span class="predefined-type">Object</span>.class);
-  }
-
-  <span class="annotation">@Bean</span>
-  RouterFunction routes(<span class="directive">final</span> HandlerFunction&lt;ServerResponse&gt; fallbackHandler) {
-    <span class="keyword">return</span>
-        route(
-            POST(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>),
-            sendMessageHandler()
-        ).andOther(
-            route(
-                GET(<span class="string"><span class="delimiter">&quot;</span><span class="content">/**</span><span class="delimiter">&quot;</span></span>),
-                fallbackHandler
-            )
-        )
-        ;
+  <span class="annotation">@KafkaListener</span>(topics = <span class="string"><span class="delimiter">&quot;</span><span class="content">messages</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> <span class="type">void</span> on(<span class="directive">final</span> ConsumerRecord&lt;<span class="predefined-type">Object</span>, <span class="predefined-type">Object</span>&gt; message) {
+    log.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">received message: {}</span><span class="delimiter">&quot;</span></span>, message.getClass());
+    Mono.just(<span class="keyword">new</span> Message().setAt(now())
+                           .setBody(message.value().toString()))
+        .subscribe(msg -&gt; log.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">saving message object: '{}'</span><span class="delimiter">&quot;</span></span>, msg));
   }
 }</code></pre>
 </div>
@@ -816,7 +793,7 @@ bash target/*.jar</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-28 13:41:39 UTC
+Last updated 2018-06-28 13:48:07 UTC
 </div>
 </div>
 </body>

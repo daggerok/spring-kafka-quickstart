@@ -39,6 +39,7 @@ before_script:
 - source "$HOME/.sdkman/bin/sdkman-init.sh"
 - spring cloud --list
 - spring cloud kafka &
+- sleep 25
 
 script:
 - bash gradlew >/dev/null

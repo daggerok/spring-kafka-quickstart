@@ -18,7 +18,7 @@ dependencies {
 
   //tag::content[]
   implementation('org.springframework.kafka:spring-kafka')
-  implementation('org.springframework.kafka:spring-kafka-test')
+  testImplementation('org.springframework.kafka:spring-kafka-test')
   //end::content[]
 
   testImplementation('org.springframework.boot:spring-boot-starter-test')

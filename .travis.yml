@@ -89,3 +89,4 @@ cache:
   - $HOME/.m2
   - $HOME/.gradle
   - $HOME/.docker
+  - $HOME/.sdkman

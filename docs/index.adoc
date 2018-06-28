@@ -50,7 +50,7 @@ include::../gradle/spring-boot.gradle[tags=content]
 .add kafke listener:
 [source,java]
 ----
-include::../src/main/java/daggerok/App.java[tags=content]
+include::../src/main/java/daggerok/app/MessageListener.java[tags=content]
 ----
 
 .add kafke sender functionality:

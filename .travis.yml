@@ -38,9 +38,8 @@ before_script:
 - source "$HOME/.sdkman/bin/sdkman-init.sh"
 - spring install org.springframework.cloud:spring-cloud-cli:1.3.3.RELEASE
 - source "$HOME/.sdkman/bin/sdkman-init.sh"
-- spring cloud --list
 - ( spring cloud kafka || true ) &
-- sleep 25
+- sleep 15
 
 script:
 - bash gradlew >/dev/null

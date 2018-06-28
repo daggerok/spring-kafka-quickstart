@@ -27,38 +27,41 @@ before_script:
 - sudo pip install docker-compose httpie >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 8080 80
+# sdk / spring boot CLI:
+- curl -s "https://get.sdkman.io" | bash
+- mkdir -p "$HOME/.sdkman/etc"
+- touch "$HOME/.sdkman/etc/config"
+- sed -i -e 's/^sdkman_auto_answer=false$/sdkman_auto_answer=true/g' "$HOME/.sdkman/etc/config"
+- source "$HOME/.sdkman/bin/sdkman-init.sh"
+- sdk use springboot
+- source "$HOME/.sdkman/bin/sdkman-init.sh"
+- spring install org.springframework.cloud:spring-cloud-cli:1.3.3.RELEASE
+- source "$HOME/.sdkman/bin/sdkman-init.sh"
+- spring cloud --list
+- spring cloud kafka &
 
 script:
 - bash gradlew >/dev/null
 - java -jar ./build/libs/*.jar &
 - wait_for 8080
-- http :8080
+- http :8080 message=hello
 - stop_any 8080 80
 #
 - bash ./build/libs/*.jar &
 - wait_for 8080
-- http :8080
+- http :8080 message=ololo
 - stop_any 8080 80
-#
-- bash gradlew composeUp
-- http :8080
-- bash gradlew composeDown
 #
 - bash mvnw >/dev/null
 - java -jar ./target/*.jar &
 - wait_for 8080
-- http :8080
+- http :8080 message=trololo
 - stop_any 8080 80
 #
 - bash ./target/*.jar &
 - wait_for 8080
-- http :8080
+- http :8080 message=hohoho
 - stop_any 8080 80
-#
-- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up -P docker
-- sleep 20
-- http :8080
-- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down -P docker
 
 before_deploy: ./gradlew documentation
 

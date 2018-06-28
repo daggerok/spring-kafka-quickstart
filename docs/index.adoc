@@ -29,6 +29,52 @@ yo jvm -n spring-kafka-quickstart -t java-spring-boot
 idea spring-kafka-quickstart/pom.xml
 ----
 
+.bootstrap kafka using link:https://github.com/daggerok/spring-cloud-examples/tree/master/spring-cloud-cli[spring boot (cloud) CLI]
+[source,bash]
+----
+spring cloud kafka
+----
+
+.add dependencies `pom.xml` file:
+[source,xml]
+----
+include::../pom.xml[tags=content]
+----
+
+.add dependencies `build.gradle` file:
+[source,groovy]
+----
+include::../gradle/spring-boot.gradle[tags=content]
+----
+
+.add kafke listener:
+[source,java]
+----
+include::../src/main/java/daggerok/App.java[tags=content]
+----
+
+.add kafke sender functionality:
+[source,java]
+----
+include::../src/main/java/daggerok/App.java[tags=content]
+----
+
+.build run and test (gradle)
+[source,bash]
+----
+./gradlew
+bash -jar build/libs/*.jar
+http :8080 message=ololo
+http :8080 message=trololo
+----
+
+.build run and test (maven)
+[source,bash]
+----
+./mvnw
+bash target/*.jar
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]

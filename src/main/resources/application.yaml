@@ -1,4 +1,10 @@
 spring:
-  profiles:
-    include:
-    - spring-boot
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: messages
+  kafka:
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest

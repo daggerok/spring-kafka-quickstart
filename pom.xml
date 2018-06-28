@@ -57,7 +57,9 @@
     </repository>
   </repositories>
 
+  <!-- tag::content[] -->
   <dependencies>
+    <!-- end::content[] -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
@@ -66,7 +68,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-    <!--
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -77,48 +78,8 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
-    -->
-    <!-- JPA (+embedded)
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-rest</artifactId>
-    </dependency>
-    -->
-    <!-- Hibernate UUID
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.core.version}</version>
-    </dependency>
-    -->
-    <!-- Mongo (+embedded)
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>de.flapdoodle.embed</groupId>
-      <artifactId>de.flapdoodle.embed.mongo</artifactId>
-    </dependency>
-    -->
-    <!-- Kafka (+embedded)
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-stream</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-stream-binder-kafka</artifactId>
-    </dependency>
+
+    <!-- tag::content[] -->
     <dependency>
       <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka</artifactId>
@@ -127,12 +88,7 @@
       <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka-test</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-stream-test-support</artifactId>
-      <scope>test</scope>
-    </dependency>
-    -->
+    <!-- end::content[] -->
 
     <!-- In java we trust -->
     <dependency>
@@ -221,7 +177,9 @@
       <version>${jgiven.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- tag::content[] -->
   </dependencies>
+  <!-- end::content[] -->
 
   <build>
     <defaultGoal>clean package</defaultGoal>
@@ -290,19 +248,6 @@
             <version>${junit.jupiter.version}</version>
           </dependency>
         </dependencies>
-        <configuration>
-          <properties>
-            <!--
-            <includeTags>acceptance | !feature-a</includeTags>
-            <excludeTags>integration, regression</excludeTags>
-            <configurationParameters>
-              junit.jupiter.conditions.deactivate = *
-              junit.jupiter.extensions.autodetection.enabled = true
-              junit.jupiter.testinstance.lifecycle.default = per_class
-            </configurationParameters>
-            -->
-          </properties>
-        </configuration>
       </plugin>
 
       <!-- jgiven: `mvn verify` -->
@@ -383,7 +328,6 @@
             <executions>
               <execution>
                 <id>up</id>
-                <!--<phase>process-resources</phase>-->
                 <phase>verify</phase>
                 <goals>
                   <goal>up</goal>
@@ -391,7 +335,6 @@
               </execution>
               <execution>
                 <id>down</id>
-                <!--<phase>test</phase>-->
                 <phase>verify</phase>
                 <goals>
                   <goal>down</goal>
@@ -433,18 +376,6 @@
                 </goals>
                 <configuration>
                   <backend>pdf</backend>
-                  <!--
-                    Since 1.5.0-alpha.9 PDF back-end can use 'rouge' as well as 'coderay'
-                    for source highlighting
-                  -->
-                  <!--
-                    Due to a known issue on windows, it is recommended to use 'coderay'
-                    until an new version of 'rouge' is released.
-
-                    see discussions: https://github.com/asciidoctor/asciidoctor-maven-examples/pull/58
-                                     https://github.com/asciidoctor/asciidoctorj-pdf/issues/3
-                                     https://github.com/jneen/rouge/issues/661
-                  -->
                   <sourceHighlighter>coderay</sourceHighlighter>
                 </configuration>
               </execution>

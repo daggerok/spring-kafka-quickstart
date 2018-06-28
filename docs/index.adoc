@@ -1,0 +1,36 @@
+= {root-project-name} ({project-version})
+Maksim Kostromin <daggerok@gmail.com>
+{docdatetime}
+:doctype: book
+:toc: left
+:toclevels: 4
+:source-highlighter: prettify
+:numbered:
+:icons: font
+:hide-uri-scheme:
+:revnumber: {project-version}
+:example-caption!:
+
+Travis CI status:
+image:https://travis-ci.org/daggerok/{root-project-name}.svg?branch=master["Build Status", link={github-url}]
+
+== Introduction
+
+include::../README.adoc[tags=content]
+
+== Implementation
+
+.create project
+[source,bash]
+----
+brew install node
+npm i -g yo generator-jvm
+yo jvm -n spring-kafka-quickstart -t java-spring-boot
+idea spring-kafka-quickstart/pom.xml
+----
+
+== Links
+
+ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]
+- link:{github-url}[GitHub repo]
+- link:https://daggerok.github.io/{root-project-name}[GitHub pages]
